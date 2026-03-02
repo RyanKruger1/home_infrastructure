@@ -22,10 +22,8 @@ spec:
                 name: {{ include "docker-registry.fullname" . }}
                 port:
                   number: {{ .Values.service.port }}
-  {{- if .Values.ingress.tls.enabled }}
+  {{- if .Values.ingress.tls }}
   tls:
-    - hosts:
-        - {{ .Values.ingress.host | quote }}
-      secretName: {{ .Values.ingress.tls.secretName | quote }}
+    {{- toYaml .Values.ingress.tls | nindent 4 }}
   {{- end }}
 {{- end }}

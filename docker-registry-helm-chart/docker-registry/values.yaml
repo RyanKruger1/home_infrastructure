@@ -17,9 +17,9 @@ ingress:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
   tls:
-    enabled: true
-    secretName: registry-kroup-xyz-tls
-
+    - secretName: registry-kroup-xyz-tls
+      hosts:
+        - registry.kroup.xyz
 persistence:
   enabled: true
   accessModes: ["ReadWriteOnce"]
