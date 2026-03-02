@@ -1,0 +1,6 @@
+apiVersion: v2
+name: docker-registry
+description: A simple Docker Registry (registry:2) chart for K3s with cert-manager TLS Ingress
+type: application
+version: 0.1.0
+appVersion: "2"

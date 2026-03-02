@@ -1,0 +1,43 @@
+replicaCount: 1
+
+image:
+  repository: registry
+  tag: "2"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+ingress:
+  enabled: true
+  className: nginx
+  host: registry.kroup.xyz
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  tls:
+    enabled: true
+    secretName: registry-kroup-xyz-tls
+
+persistence:
+  enabled: true
+  accessModes: ["ReadWriteOnce"]
+  size: 50Gi
+  storageClassName: ""  # set if you have one, e.g. "local-path" on k3s
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+registry:
+  # Storage backend: filesystem is simplest for k3s
+  storage: filesystem
+  # Optional: enable delete support (allows garbage collection workflows)
+  enableDelete: true
+
+auth:
+  enabled: false
+  # Name of a secret containing htpasswd file as key "htpasswd"
+  existingSecret: ""
