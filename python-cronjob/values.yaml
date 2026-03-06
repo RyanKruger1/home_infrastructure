@@ -1,0 +1,27 @@
+image:
+  repository: registry.kroup.xyz/scraper
+  tag: latest
+  pullPolicy: IfNotPresent
+
+cronjob:
+  schedule: "0 3 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+
+job:
+  restartPolicy: Never
+
+command:
+  - python
+args:
+  - main.py
+
+resources: {}
+# resources:
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
+#   limits:
+#     cpu: 500m
+#     memory: 512Mi
