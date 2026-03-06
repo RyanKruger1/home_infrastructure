@@ -1,0 +1,16 @@
+\
+1. Get the MariaDB service name:
+
+   {{- if eq .Values.service.type "ClusterIP" }}
+   export SERVICE_NAME={{ include "mariadb.fullname" . }}
+   {{- else }}
+   export SERVICE_NAME={{ include "mariadb.fullname" . }}
+   {{- end }}
+
+2. Connect from inside the cluster:
+
+   kubectl run -it --rm mariadb-client --image=mariadb:{{ .Values.image.tag }} --restart=Never -- \
+     mariadb -h ${SERVICE_NAME} -u {{ .Values.auth.username }} -p{{ .Values.auth.password }} {{ .Values.auth.database }}
+
+Root password is stored in the Secret:
+  {{ default (include "mariadb.fullname" .) .Values.auth.existingSecret }}

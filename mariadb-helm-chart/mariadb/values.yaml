@@ -1,0 +1,35 @@
+replicaCount: 1
+
+image:
+  repository: mariadb
+  tag: "11.4"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3306
+
+auth:
+  # If empty, a Kubernetes Secret will be created from these values.
+  existingSecret: ""
+  rootPassword: "secret"
+  database: "testdb"
+  username: "root"
+  password: "secret"
+
+persistence:
+  enabled: true
+  storageClass: ""
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+podSecurityContext: {}
+securityContext: {}
+
+extraEnv: []
