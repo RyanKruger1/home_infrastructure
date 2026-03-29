@@ -1,16 +1,21 @@
 image:
   repository: registry.kroup.xyz/scraper
-  tag: latest
-  pullPolicy: IfNotPresent
+  tag: perfect
+  pullPolicy: Always
 
 cronjob:
-  schedule: "0 3 * * *"
+  # every hour at minute 0
+  schedule: "0 * * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
 
 job:
   restartPolicy: Never
+  # don't retry on failure (prevents "run another" retry pod)
+  backoffLimit: 0
+  # optional safety limit: kill job if it runs too long
+  # activeDeadlineSeconds: 3600
 
 command:
   - python
@@ -18,10 +23,3 @@ args:
   - main.py
 
 resources: {}
-# resources:
-#   requests:
-#     cpu: 100m
-#     memory: 128Mi
-#   limits:
-#     cpu: 500m
-#     memory: 512Mi

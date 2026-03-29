@@ -24,11 +24,17 @@ persistence:
     - ReadWriteOnce
   size: 8Gi
 
-resources: {}
+resources:
+  requests:
+    cpu: "500m"
+    memory: "1Gi"
+  limits:
+    cpu: "2"
+    memory: "4Gi"
+
 nodeSelector: {}
 tolerations: []
 affinity: {}
-
 podSecurityContext: {}
 securityContext: {}
 
