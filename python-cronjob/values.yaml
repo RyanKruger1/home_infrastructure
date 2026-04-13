@@ -1,11 +1,11 @@
 image:
   repository: registry.kroup.xyz/scraper
-  tag: perfect
+  tag: latest
   pullPolicy: Always
 
 cronjob:
   # every hour at minute 0
-  schedule: "0 * * * *"
+  schedule: "0 */2 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
@@ -20,6 +20,7 @@ job:
 command:
   - python
 args:
-  - main.py
+  - -m
+  - scraper.main
 
 resources: {}
